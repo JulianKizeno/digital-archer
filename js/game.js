@@ -10,6 +10,7 @@ const game = {
     balloons: [],
     interval: undefined,
     counter : 0,
+    score: 0,
     goneBalloons : [],
     balloonsToLose: 6,
     init(id){
@@ -54,11 +55,11 @@ const game = {
     },
 
     generateBalloon(){
-        this.balloons.push(new Balloon(this.contx, this.posX, this.canvasSize.height + 60, 60, 60, this.canvasSize, this.vel))
+        this.balloons.push(new Balloon(this.contx, this.posX, this.canvasSize.height + 60, this.width, this.height, this.canvasSize, this.vel))
     },
 
     deleteBalloons(){
-        this.goneBalloons = this.balloons.filter(ballon => ballon.posY <= -60)
+        this.goneBalloons = this.balloons.filter(ballon => ballon.posY <= - 60)
     },
     
     deleteArrows(){
@@ -69,8 +70,12 @@ const game = {
     drawPlayer(){
         this.player.drawPlayer()
     },
+    
+    drawScore(){
 
-    isCollision(obj1,obj2){
+    },
+
+    isCollision(obj1,obj2, /*obj3*/){
         return obj1.posX < obj2.posX + obj2.width  &&
                obj1.posX + obj1.width > obj2.posX    &&
                obj1.posY < obj2.posY + obj2.height &&
@@ -80,21 +85,22 @@ const game = {
     checkAllCollisions(){
         this.player.arrows.forEach((arrow,idx) => { 
             this.balloons.forEach((balloon,index) => { 
-                if(this.isCollision(arrow, balloon)){
-                    this.balloons.splice(index,1)
-                }
+                //this.ghosts.forEach((ghost, indx) => {
+                    if(this.isCollision(arrow, balloon)){
+                        this.balloons.splice(index,1)
+                        //this.ghosts.splice(indx,1)
+                        console.log(this.balloons)
+                    }
+              //})   
             })
         })    
     },
 
+
     gameOver(){
         clearInterval(this.interval)
-        alert('has perdido :(')
+        alert('You are not good enough')
     }
 }
 
-
- //isCollision(arrow,globo) del arrow y del globo
-                                    //break img isBroken true <-- Opcional
-                                    //si true, array de globos --> splice(index,1)
-        //})
+// socore += number of collisions
