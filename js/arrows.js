@@ -9,8 +9,6 @@ class Arrows {
         this.velX = 5
         this.arrow = new Image()
         this.arrow.src = `./images/arrow.png`
-      
-
     }
   
     drawArrow() {
