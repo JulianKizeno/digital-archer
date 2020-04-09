@@ -10,7 +10,7 @@ class Ghosts {
             width: canvasSize.width,
             height: canvasSize.height
         }
-        this.vel = Math.random() * (2 - 1) + 1
+        this.vel = Math.random() * (1.5 - 1) + 1
         this.ghost = new Image()
         this.ghost.src = `./images/ghost1.png`
     }
