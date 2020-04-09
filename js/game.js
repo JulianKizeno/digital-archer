@@ -10,23 +10,29 @@ const game = {
     balloons: [],
     interval: undefined,
     counter : 0,
+    goneBalloons : [],
+    balloonsToLose: 6,
     init(id){
         this.canvasDom = document.getElementById(id)
         this.canvasDom.height = this.canvasSize.height
         this.canvasDom.width = this.canvasSize.width
         this.contx = this.canvasDom.getContext('2d')  
         this.startGame()
-        this.player = new Player(this.contx, 0, 0, 150, 150, this.canvasSize)
+        this.player = new Player(this.contx, 0, 0, 130, 130, this.canvasSize)
         
     },
 
     startGame(){
         this.interval = setInterval(() => {
+            if(this.goneBalloons.length === this.balloonsToLose){
+               this.gameOver()
+            }
+            //console.log(this.goneBalloons)
             this.counter++
             this.clearScreen()
             this.deleteBalloons()
             this.deleteArrows()
-            //this.checkAllCollisions()
+            this.checkAllCollisions()
             this.balloons.forEach(elm => elm.move())
             this.drawBalloon()
             if(this.counter % 100 === 0){
@@ -48,14 +54,11 @@ const game = {
     },
 
     generateBalloon(){
-        const size = 60
-        const randomVel = Math.random() * (2 - 1) + 1
-        const randomPosx = Math.floor(Math.random() * (1240 - 200) + 200)
-        this.balloons.push(new Balloon(this.contx, randomPosx, this.canvasSize.height + size, size, size, this.canvasSize, randomVel))
+        this.balloons.push(new Balloon(this.contx, this.posX, this.canvasSize.height + 60, 60, 60, this.canvasSize, this.vel))
     },
 
     deleteBalloons(){
-        this.balloons = this.balloons.filter(ballon => ballon.posY >= -60)
+        this.goneBalloons = this.balloons.filter(ballon => ballon.posY <= -60)
     },
     
     deleteArrows(){
@@ -65,21 +68,29 @@ const game = {
 
     drawPlayer(){
         this.player.drawPlayer()
-    }
+    },
 
-    //isCollision(obj1,obj2){
-    //  return (this.arrow.posX + width > this.balloon.posX 
-    //  && this.arrow.posX + width + height > this.balloon.posX + height) 
-    //     //ojb1.posX > obj2.posX+obj2.width
-    //     //asegrúrate que todas tus clases tienen las propiedades iguales posX, posY, width, height
-    // },
-    // checkAllCollisions(){
-    //     this.player.arrows.foreach((arrow,idx) => {
-    //         this.balloons.foreach((balloon,index) => {
-    //             this.isCollision(arrow, balloon)
-    //         })
-    //     })    
-    // }
+    isCollision(obj1,obj2){
+        return obj1.posX < obj2.posX + obj2.width  &&
+               obj1.posX + obj1.width > obj2.posX    &&
+               obj1.posY < obj2.posY + obj2.height &&
+               obj1.height + obj1.posY > obj2.posY 
+     },
+
+    checkAllCollisions(){
+        this.player.arrows.forEach((arrow,idx) => { 
+            this.balloons.forEach((balloon,index) => { 
+                if(this.isCollision(arrow, balloon)){
+                    this.balloons.splice(index,1)
+                }
+            })
+        })    
+    },
+
+    gameOver(){
+        clearInterval(this.interval)
+        alert('has perdido :(')
+    }
 }
 
 
