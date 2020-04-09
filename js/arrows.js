@@ -5,7 +5,6 @@ class Arrows {
         this.posX = playerPosX + playerWidth
         this.posY = playerPosY + playerHeight - 74
         this.width = 130
-        //this.playerHeight = playerHeight
         this.height = 10
         this.velX = 4
         this.arrow = new Image()
