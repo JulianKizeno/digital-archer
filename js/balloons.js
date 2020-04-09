@@ -17,7 +17,6 @@ class Balloon {
         this.balloon.src = `./images/balloon2.png`
         this.balloonBreak = new Image()
         this.balloonBreak = './images/break-balloon.png'
-        
     }
 
     drawInit() {
