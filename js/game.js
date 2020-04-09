@@ -8,11 +8,12 @@ const game = {
     },
     player: undefined,
     balloons: [],
+    ghosts: [],
     interval: undefined,
     counter : 0,
     score: 0,
     goneBalloons : [],
-    balloonsToLose: 6,
+    lives: 8,
     init(id){
         this.canvasDom = document.getElementById(id)
         this.canvasDom.height = this.canvasSize.height
@@ -20,29 +21,32 @@ const game = {
         this.contx = this.canvasDom.getContext('2d')  
         this.startGame()
         this.player = new Player(this.contx, 0, 0, 130, 130, this.canvasSize)
-        
     },
 
     startGame(){
         this.interval = setInterval(() => {
-            if(this.goneBalloons.length === this.balloonsToLose){
+            if(this.goneBalloons.length === this.lives){
                this.gameOver()
             }
-            //console.log(this.goneBalloons)
             this.counter++
             this.clearScreen()
             this.deleteBalloons()
+            this.deleteGhosts()
             this.deleteArrows()
             this.checkAllCollisions()
             this.balloons.forEach(elm => elm.move())
             this.drawBalloon()
+            this.ghosts.forEach(elmt => elmt.move())
+            this.drawGhosts()
             if(this.counter % 100 === 0){
                 this.generateBalloon()
+                this.generateGhosts()
             }
             this.player.arrows.forEach(arrow => arrow.moveArrow())
             this.player.arrows.forEach(arrow => arrow.drawArrow())
             this.drawPlayer()
-        }, 1000/60)
+            this.drawScore()
+        }, 1000/50)
 
     },
 
@@ -50,30 +54,54 @@ const game = {
         this.contx.clearRect(0, 0, this.canvasSize.width, this.canvasSize.height)
     },
 
+    drawPlayer(){
+        this.player.drawPlayer()
+    },
+
+    //------BALLOONS------
+
     drawBalloon() {
         this.balloons.forEach(elm => elm.drawInit())
     },
 
     generateBalloon(){
-        this.balloons.push(new Balloon(this.contx, this.posX, this.canvasSize.height + 60, this.width, this.height, this.canvasSize, this.vel))
+        this.balloons.push(new Balloon(this.contx, this.posX, this.canvasSize.height + 60, this.width, this.height, this.canvasSize))
     },
 
     deleteBalloons(){
         this.goneBalloons = this.balloons.filter(ballon => ballon.posY <= - 60)
     },
-    
+
+    // -------GHOSTS-------
+
+    drawGhosts() {
+        this.ghosts.forEach(ghost => ghost.draw())
+    },
+
+    generateGhosts(){
+        let gst = new Ghosts(this.contx, this.canvasSize.width + 60, this.posY, this.width, this.height, this.canvasSize)
+        this.ghosts.push(gst)
+    },
+
+    deleteGhosts(){
+        console.log(this.ghosts.length)
+        this.ghosts = this.ghosts.filter(ghost => ghost.posX >= - 60)
+    },
+
     deleteArrows(){
         this.player.arrows = this.player.arrows.filter(arrow => arrow.posX <= this.canvasSize.width)
 
     },
 
-    drawPlayer(){
-        this.player.drawPlayer()
+    //------SCORE------
+
+    drawScore(){
+        this.contx.fillStyle = 'white'
+        this.contx.font = '40px Arial'
+        this.contx.fillText(`Score: ${this.score} lives: ${this.lives-this.goneBalloons.length}`, this.canvasSize.width - 320, 50) 
     },
     
-    drawScore(){
-
-    },
+    //--------COLLISIONS--------
 
     isCollision(obj1,obj2, /*obj3*/){
         return obj1.posX < obj2.posX + obj2.width  &&
@@ -88,8 +116,8 @@ const game = {
                 //this.ghosts.forEach((ghost, indx) => {
                     if(this.isCollision(arrow, balloon)){
                         this.balloons.splice(index,1)
+                        this.score++
                         //this.ghosts.splice(indx,1)
-                        console.log(this.balloons)
                     }
               //})   
             })
@@ -99,7 +127,7 @@ const game = {
 
     gameOver(){
         clearInterval(this.interval)
-        alert('You are not good enough')
+        alert('YOU LOSE! :(')
     }
 }
 
