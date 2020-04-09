@@ -40,8 +40,10 @@ class Player {
     }
     
     throwArrows(){
-        this.arrows.push(new Arrows(this.contx, this.posX, this.posY, this.width, this.height)) 
-        console.log(this.arrows);
+        if(this.arrows.length < 5){
+
+            this.arrows.push(new Arrows(this.contx, this.posX, this.posY, this.width, this.height)) 
+        }
         
     }
    
