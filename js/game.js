@@ -40,7 +40,9 @@ const game = {
             this.drawGhosts()
             if(this.counter % 100 === 0){
                 this.generateBalloon()
-                this.generateGhosts()
+                if(this.counter % 200 === 0){                   
+                    this.generateGhosts()
+                }
             }
             this.player.arrows.forEach(arrow => arrow.moveArrow())
             this.player.arrows.forEach(arrow => arrow.drawArrow())
@@ -113,14 +115,16 @@ const game = {
     checkAllCollisions(){
         this.player.arrows.forEach((arrow,idx) => { 
             this.balloons.forEach((balloon,index) => { 
-                //this.ghosts.forEach((ghost, indx) => {
-                    if(this.isCollision(arrow, balloon)){
-                        this.balloons.splice(index,1)
-                        this.score++
-                        //this.ghosts.splice(indx,1)
-                    }
-              //})   
+                if(this.isCollision(arrow, balloon)){
+                    this.balloons.splice(index,1)
+                    this.score++
+                }
             })
+        })
+        this.ghosts.forEach((ghost, indx) => {
+            if(this.isCollision(this.player, ghost)){
+                this.gameOver()
+            }
         })    
     },
 
@@ -132,3 +136,6 @@ const game = {
 }
 
 // socore += number of collisions
+  //this.ghosts.forEach((ghost, indx) => {
+        //this.ghosts.splice(indx,1)
+      //})   
