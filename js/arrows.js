@@ -3,10 +3,10 @@ class Arrows {
     constructor(contx, playerPosX, playerPosY, playerWidth, playerHeight) {
         this.contx = contx
         this.posX = playerPosX + playerWidth
-        this.posY = playerPosY + playerHeight - 85
-        this.arrowWidth = 150
+        this.posY = playerPosY + playerHeight - 74
+        this.width = 130
         //this.playerHeight = playerHeight
-        this.arrowHeight = 10
+        this.height = 10
         this.velX = 4
         this.arrow = new Image()
         this.arrow.src = `./images/arrow.png`
@@ -15,7 +15,7 @@ class Arrows {
     }
   
     drawArrow() {
-        this.contx.drawImage(this.arrow, this.posX, this.posY, this.arrowWidth, this.arrowHeight)
+        this.contx.drawImage(this.arrow, this.posX, this.posY, this.width, this.height)
     }
   
     moveArrow() {
