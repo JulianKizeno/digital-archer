@@ -20,15 +20,13 @@ class Balloon {
     }
 
     drawInit() {
-        // this.isBroken ?
-        // this.contx.drawImage(this.balloonBreak, this.posX, this.posY, this.balloonW, this.balloonH) : this.ballon
         this.contx.drawImage(this.balloon, this.posX, this.posY, this.width, this.height)
     }
     
     move() {
 
         this.posY -= this.vel
-        
+       
     }
 
 }
