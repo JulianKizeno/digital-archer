@@ -4,21 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        *{
-            padding: 0;
-            margin: 0;
-        }
-
-        #myCanvas{
-            background: url('./images/background.png');
-            background-size: cover;
-        }
-    </style>
+   <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-        
-        <canvas id="myCanvas"></canvas>
+    <div class="intro">
+        <h1>Titulo del game</h1>
+        <button id="start" onclick="">START GAME</button>
+    </div>
+        <canvas id="myCanvas" class="hidden"></canvas>
 
     <script type="text/javascript" src ="./js/arrows.js"></script>
     <script type="text/javascript" src ="./js/ghosts.js"></script>

@@ -48,6 +48,7 @@ const game = {
             this.player.arrows.forEach(arrow => arrow.drawArrow())
             this.drawPlayer()
             this.drawScore()
+            this.player.movePlayer()
         }, 1000/50)
 
     },
@@ -105,7 +106,7 @@ const game = {
     
     //--------COLLISIONS--------
 
-    isCollision(obj1,obj2, /*obj3*/){
+    isCollision(obj1,obj2){
         return obj1.posX < obj2.posX + obj2.width  &&
                obj1.posX + obj1.width > obj2.posX    &&
                obj1.posY < obj2.posY + obj2.height &&
