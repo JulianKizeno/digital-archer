@@ -3,7 +3,7 @@ class Ghosts {
     constructor(contx, posX, posY, width, height, canvasSize, vel) {
         this.contx = contx
         this.posX = posX
-        this.posY = Math.floor(Math.random() * (canvasSize.height + 60 ))
+        this.posY = Math.floor(Math.random() * (canvasSize.height - 60 ))
         this.width = 45
         this.height = 50
         this.canvasSize = {
@@ -16,7 +16,6 @@ class Ghosts {
     }
 
     draw() {
-
         this.contx.drawImage(this.ghost, this.posX, this.posY, this.width, this.height)
     }
 
