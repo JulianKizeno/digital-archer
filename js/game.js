@@ -87,8 +87,9 @@ const game = {
     },
 
     deleteGhosts(){
-        console.log(this.ghosts.length)
-        this.ghosts = this.ghosts.filter(ghost => ghost.posX >= - 60)
+       
+        this.ghosts = this.ghosts.filter(ghost => ghost.posX >= 10)
+       
     },
 
     deleteArrows(){

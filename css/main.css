@@ -5,6 +5,9 @@
 
 body{
     overflow:hidden;
+    font-family: monospace;
+    font-size: 1.4em;
+    color: #ddfbf5;
 }
 
 #myCanvas{
@@ -16,11 +19,51 @@ body{
     width:100vw;
     height:100vh;
     display:flex;
-    flex-direction:column;
+    flex-direction: column;
     justify-content:center;
     align-items:center;
     background: url('../images/background.png');
     background-size: cover;
+}
+
+h1{
+    font-size: 4em;
+}
+
+h1, h2{
+    margin-bottom: 10px;
+}
+
+p {
+    text-align: center;
+    width: 30%;
+    margin-bottom: 10px;
+}
+
+strong{
+    font-size: 1.2em;
+    color:#579bdd
+}
+
+img{
+    width: 10px;
+}
+
+.spacebar{
+    width: 35px;
+}
+
+#start{
+    padding: 10px;
+    color:#579bdd;
+    border-radius: 5px;
+    box-shadow: 8px 8px 0 rgba(87,155,221,.5);
+    font-family: monospace;
+    background: #ddfbf5;
+}
+
+#start:hover{
+    color: #73cbe5;
 }
 
 .hidden{
